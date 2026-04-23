@@ -1,0 +1,121 @@
+Place_ID,Place_Name,State,City,Lat,Lng,Ideal_Hours,Popularity_Score,Is_Museum,Is_Nature,Is_Beach,Is_History,Is_Temple,Is_Wildlife,Is_Shopping
+1,Chitrakote Falls,Chhattisgarh,Jagdalpur,19.2319,81.7119,3,95,0,1,0,0,0,0,0
+2,Tirathgarh Falls,Chhattisgarh,Jagdalpur,19.0328,81.9417,3,90,0,1,0,0,0,0,0
+3,Kanger Valley National Park,Chhattisgarh,Jagdalpur,19.0500,81.9833,6,92,0,1,0,0,0,1,0
+4,Kotumsar Cave,Chhattisgarh,Jagdalpur,19.0667,81.9500,2,85,0,1,0,0,0,0,0
+5,Dandak Cave,Chhattisgarh,Jagdalpur,19.0500,81.9667,2,80,0,1,0,0,0,0,0
+6,Tribal Museum Jagdalpur,Chhattisgarh,Jagdalpur,19.0742,82.0179,2,82,1,0,0,1,0,0,0
+7,Bastar Palace,Chhattisgarh,Jagdalpur,19.0742,82.0200,2,78,0,0,0,1,0,0,0
+8,Jagannath Temple Jagdalpur,Chhattisgarh,Jagdalpur,19.0800,82.0100,1,75,0,0,0,0,1,0,0
+9,Chitradhara Falls,Chhattisgarh,Jagdalpur,19.2000,81.7500,2,72,0,1,0,0,0,0,0
+10,Mendri Ghumer Falls,Chhattisgarh,Jagdalpur,19.1800,81.7200,2,70,0,1,0,0,0,0,0
+11,Tamda Ghumar Falls,Chhattisgarh,Jagdalpur,19.2100,81.7400,2,68,0,1,0,0,0,0,0
+12,Maa Danteswari Temple,Chhattisgarh,Dantewada,18.8950,81.3460,2,93,0,0,0,1,1,0,0
+13,Barsur Temples,Chhattisgarh,Barsur,19.1000,81.4333,3,80,0,0,0,1,1,0,0
+14,Narayanpal Temple,Chhattisgarh,Bijapur,18.9167,80.9833,2,72,0,0,0,1,1,0,0
+15,Indravati National Park,Chhattisgarh,Bijapur,18.9000,80.8500,6,85,0,1,0,0,0,1,0
+16,Mahant Ghasi Das Museum,Chhattisgarh,Raipur,21.2311,81.6336,2,88,1,0,0,1,0,0,0
+17,Purkhouti Muktangan,Chhattisgarh,Raipur,21.2400,81.6500,3,85,1,0,0,1,0,0,0
+18,Science Centre Raipur,Chhattisgarh,Raipur,21.2514,81.6296,2,80,1,0,0,0,0,0,0
+19,Nandanvan Zoo Raipur,Chhattisgarh,Raipur,21.2100,81.6100,3,82,0,0,0,0,0,1,0
+20,Jungle Safari Raipur,Chhattisgarh,Raipur,21.2050,81.6000,4,88,0,1,0,0,0,1,0
+21,Telibandha Lake,Chhattisgarh,Raipur,21.2514,81.6350,2,75,0,1,0,0,0,0,0
+22,Dudhadhari Math,Chhattisgarh,Raipur,21.2450,81.6400,2,78,0,0,0,1,1,0,0
+23,Shitla Mata Temple Raipur,Chhattisgarh,Raipur,21.2600,81.6350,1,70,0,0,0,0,1,0,0
+24,Champaran Mahaprabhu Temple,Chhattisgarh,Champaran,21.0700,81.4200,2,82,0,0,0,1,1,0,0
+25,Magneto Mall Raipur,Chhattisgarh,Raipur,21.2700,81.6800,4,85,0,0,0,0,0,0,1
+26,City Centre Mall Raipur,Chhattisgarh,Raipur,21.2550,81.6500,3,80,0,0,0,0,0,0,1
+27,Pandri Market Raipur,Chhattisgarh,Raipur,21.2514,81.6350,3,75,0,0,0,0,0,0,1
+28,Bhoramdeo Temple,Chhattisgarh,Kawardha,22.0057,81.2312,2,90,0,0,0,1,1,0,0
+29,Barnawapara Wildlife Sanctuary,Chhattisgarh,Mahasamund,21.2500,82.2167,5,82,0,1,0,0,0,1,0
+30,Sirpur Heritage Site,Chhattisgarh,Sirpur,21.3333,82.2000,3,85,0,0,0,1,0,0,0
+31,Laxman Temple Sirpur,Chhattisgarh,Sirpur,21.3400,82.2000,2,83,0,0,0,1,1,0,0
+32,Rajim Temple,Chhattisgarh,Rajim,20.9700,81.8800,2,87,0,0,0,1,1,0,0
+33,Kuleshwar Temple Rajim,Chhattisgarh,Rajim,20.9600,81.8700,1,82,0,0,0,1,1,0,0
+34,Ghatarani Waterfall,Chhattisgarh,Gariaband,20.7000,82.0200,3,78,0,1,0,0,1,0,0
+35,Jatmai Temple,Chhattisgarh,Gariaband,20.7100,82.0300,1,75,0,1,0,0,1,0,0
+36,Gangrel Dam,Chhattisgarh,Dhamtari,20.6900,81.7500,3,80,0,1,0,0,0,0,0
+37,Achanakmar Wildlife Sanctuary,Chhattisgarh,Bilaspur,22.3333,81.5500,5,83,0,1,0,0,0,1,0
+38,Mahamaya Temple Ratanpur,Chhattisgarh,Ratanpur,22.2167,82.1833,2,85,0,0,0,1,1,0,0
+39,Badrakali Temple Ratanpur,Chhattisgarh,Ratanpur,22.2100,82.1900,1,78,0,0,0,0,1,0,0
+40,Ratanpur Fort,Chhattisgarh,Ratanpur,22.2167,82.1833,2,80,0,0,0,1,0,0,0
+41,Malhar Archaeological Site,Chhattisgarh,Malhar,22.0833,82.3833,3,78,1,0,0,1,0,0,0
+42,Sheorinarayan Temple,Chhattisgarh,Sheorinarayan,22.0200,82.5800,2,80,0,0,0,1,1,0,0
+43,Janjgir Vishnu Temple,Chhattisgarh,Janjgir,22.0133,82.5757,2,75,0,0,0,1,1,0,0
+44,Mainpat,Chhattisgarh,Mainpat,23.1200,83.3500,4,85,0,1,0,0,0,0,0
+45,Tattapani Hot Springs,Chhattisgarh,Balrampur,23.3000,83.7000,3,78,0,1,0,0,0,0,0
+46,Ramgarh Hill,Chhattisgarh,Ambikapur,23.0500,83.3000,3,80,0,1,0,1,0,0,0
+47,Amrit Dhara Falls,Chhattisgarh,Korea,23.1333,82.5500,3,80,0,1,0,0,0,0,0
+48,Guru Ghasidas National Park,Chhattisgarh,Korea,23.3000,82.8333,6,82,0,1,0,0,0,1,0
+49,Udanti Sitanadi Wildlife Sanctuary,Chhattisgarh,Gariaband,20.4167,82.3333,5,78,0,1,0,0,0,1,0
+50,Kailash Gufa Ambikapur,Chhattisgarh,Ambikapur,23.1192,83.1971,2,72,0,1,0,0,1,0,0
+51,Sondur Dam,Chhattisgarh,Dhamtari,20.5500,81.6500,3,70,0,1,0,0,0,0,0
+52,Dholkal Ganesha,Chhattisgarh,Bastar,19.2000,81.5500,4,78,0,1,0,0,1,0,0
+53,Pamed Wildlife Sanctuary,Chhattisgarh,Bijapur,18.7000,80.6500,5,72,0,1,0,0,0,1,0
+54,Kondagaon Craft Village,Chhattisgarh,Kondagaon,19.5940,81.6640,2,75,0,0,0,0,0,0,1
+55,Bell Metal Craft Center Jagdalpur,Chhattisgarh,Jagdalpur,19.0800,82.0250,1,78,0,0,0,0,0,0,1
+56,Pithora Art Village,Chhattisgarh,Raipur,21.2200,81.5800,2,72,1,0,0,1,0,0,1
+57,Hasdev Aranya Forest,Chhattisgarh,Korba,23.0500,82.5500,4,75,0,1,0,0,0,1,0
+58,Bhilai Steel Plant Museum,Chhattisgarh,Bhilai,21.1904,81.3042,2,70,1,0,0,1,0,0,0
+59,Ramdaha Falls,Chhattisgarh,Kanker,20.2000,81.3000,2,68,0,1,0,0,0,0,0
+60,Budhapara Lake Raipur,Chhattisgarh,Raipur,21.2600,81.6400,2,72,0,1,0,0,0,0,0
+61,Marine Drive Raipur,Chhattisgarh,Raipur,21.2300,81.6200,2,80,0,1,0,0,0,0,0
+62,Pali Shiva Temple,Chhattisgarh,Pali,22.2500,82.4833,2,75,0,0,0,1,1,0,0
+63,Gandhi Udyan Raipur,Chhattisgarh,Raipur,21.2500,81.6296,1,68,0,1,0,0,0,0,0
+64,Hatkeshwar Temple Raipur,Chhattisgarh,Raipur,21.2450,81.6350,1,70,0,0,0,0,1,0,0
+65,Charre Marre Falls,Chhattisgarh,Kondagaon,19.6000,81.5000,2,72,0,1,0,0,0,0,0
+66,Sailduba Bastar,Chhattisgarh,Jagdalpur,19.1500,82.0500,3,68,0,1,0,0,0,0,0
+67,Mawai Waterfall,Chhattisgarh,Bastar,19.3000,81.7000,2,65,0,1,0,0,0,0,0
+68,Manendragarh Forest,Chhattisgarh,Manendragarh,23.2000,82.2000,3,68,0,1,0,0,0,1,0
+69,Keoti Falls Raigarh,Chhattisgarh,Raigarh,22.1000,83.5500,2,72,0,1,0,0,0,0,0
+70,Khairagarh Fort,Chhattisgarh,Khairagarh,21.4167,80.9833,2,70,0,0,0,1,0,0,0
+71,Rajnandgaon Lake,Chhattisgarh,Rajnandgaon,21.0964,81.0303,2,65,0,1,0,0,0,0,0
+72,Bastar Dussehra Ground,Chhattisgarh,Jagdalpur,19.0742,82.0179,2,85,0,0,0,1,0,0,0
+73,Maheshpur Temple Complex,Chhattisgarh,Ambikapur,23.2000,83.4000,3,72,0,0,0,1,1,0,0
+74,Deobhog,Chhattisgarh,Gariaband,20.3000,82.4000,3,65,0,1,0,0,0,0,0
+75,Kanker Palace,Chhattisgarh,Kanker,20.2719,81.4941,2,75,0,0,0,1,0,0,0
+76,Kanker Ranidah Falls,Chhattisgarh,Kanker,20.3500,81.4000,2,68,0,1,0,0,0,0,0
+77,Anthropological Museum Jagdalpur,Chhattisgarh,Jagdalpur,19.0742,82.0300,2,80,1,0,0,1,0,0,0
+78,Aamabeda Waterfall,Chhattisgarh,Kondagaon,19.5500,81.5500,2,65,0,1,0,0,0,0,0
+79,Mandwa Waterfall,Chhattisgarh,Kondagaon,19.5700,81.6000,2,62,0,1,0,0,0,0,0
+80,Surang Tila Sirpur,Chhattisgarh,Sirpur,21.3300,82.2100,2,80,0,0,0,1,1,0,0
+81,Buddhist Monastery Sirpur,Chhattisgarh,Sirpur,21.3350,82.2050,2,78,0,0,0,1,0,0,0
+82,Rajim Triveni Sangam,Chhattisgarh,Rajim,20.9650,81.8750,2,82,0,1,0,0,1,0,0
+83,Minimat Falls Bastar,Chhattisgarh,Jagdalpur,19.1000,82.0500,1,65,0,1,0,0,0,0,0
+84,Ganga Munda Temple Jagdalpur,Chhattisgarh,Jagdalpur,19.0800,82.0300,1,70,0,0,0,0,1,0,0
+85,Kutru Wildlife Area,Chhattisgarh,Bijapur,18.7500,80.9000,4,68,0,1,0,0,0,1,0
+86,Lava Fort Ambikapur,Chhattisgarh,Ambikapur,23.1300,83.2100,2,65,0,0,0,1,0,0,0
+87,MM Fun World Raipur,Chhattisgarh,Raipur,21.2800,81.6700,4,78,0,0,0,0,0,0,1
+88,Bhilai Cultural Complex,Chhattisgarh,Bhilai,21.1950,81.3080,2,68,1,0,0,0,0,0,0
+89,Maitri Bagh Zoo Bhilai,Chhattisgarh,Bhilai,21.1904,81.3042,3,78,0,0,0,0,0,1,0
+90,Semarsot Wildlife Sanctuary,Chhattisgarh,Surguja,23.4000,84.0000,5,70,0,1,0,0,0,1,0
+91,Tamor Pingla Wildlife Sanctuary,Chhattisgarh,Surguja,22.9500,83.8000,5,68,0,1,0,0,0,1,0
+92,Badalkhol Wildlife Sanctuary,Chhattisgarh,Jashpur,22.9500,84.1500,4,65,0,1,0,0,0,1,0
+93,Jashpur Valley,Chhattisgarh,Jashpur,22.8930,84.1350,3,72,0,1,0,0,0,0,0
+94,Kunkuri Church,Chhattisgarh,Jashpur,22.8500,84.0500,1,65,0,0,0,1,0,0,0
+95,Rani Falls Jashpur,Chhattisgarh,Jashpur,22.9000,84.2000,2,68,0,1,0,0,0,0,0
+96,Arang Temple,Chhattisgarh,Arang,21.1900,82.0200,2,75,0,0,0,1,1,0,0
+97,Gavar Ghat Raipur,Chhattisgarh,Raipur,21.2200,81.6100,2,68,0,1,0,0,0,0,0
+98,Kedareshwar Temple Raipur,Chhattisgarh,Raipur,21.2400,81.6300,1,68,0,0,0,0,1,0,0
+99,Seoni Forest Balrampur,Chhattisgarh,Balrampur,23.2500,83.6000,3,65,0,1,0,0,0,1,0
+100,Rikhend Dam,Chhattisgarh,Balrampur,23.1700,83.0500,2,65,0,1,0,0,0,0,0
+101,Devrani Jethani Temple Tala,Chhattisgarh,Bilaspur,22.1500,82.0000,2,78,0,0,0,1,1,0,0
+102,Raigarh Ghungru Falls,Chhattisgarh,Raigarh,21.9500,83.4000,2,65,0,1,0,0,0,0,0
+103,Chhattisgarh Handicrafts Emporium,Chhattisgarh,Raipur,21.2514,81.6296,2,72,0,0,0,0,0,0,1
+104,Korba Nature Trail,Chhattisgarh,Korba,22.3595,82.7501,3,65,0,1,0,0,0,0,0
+105,Bastar Tribal Craft Bazaar,Chhattisgarh,Jagdalpur,19.0750,82.0150,2,76,0,0,0,0,0,0,1
+106,Chirmiri Hill Station,Chhattisgarh,Korea,22.8483,82.3430,4,80,0,1,0,0,0,0,0
+107,Keshkal Valley,Chhattisgarh,Kondagaon,19.8667,81.8833,3,85,0,1,0,0,0,0,0
+108,Dongargarh Hill,Chhattisgarh,Rajnandgaon,21.1833,80.7667,3,80,0,1,0,0,1,0,0
+109,Samri Hill Station,Chhattisgarh,Surguja,22.9667,83.5167,4,72,0,1,0,0,0,0,0
+110,Pendra Road Hills,Chhattisgarh,Bilaspur,22.7667,81.9833,3,70,0,1,0,0,0,0,0
+111,Kudargarh Hills,Chhattisgarh,Surguja,23.2000,83.4000,3,68,0,1,0,0,0,0,0
+112,Badedongar Peak,Chhattisgarh,Bastar,19.3000,81.9000,4,72,0,1,0,0,0,0,0
+113,Gandai Hill,Chhattisgarh,Rajnandgaon,21.6667,81.0333,3,65,0,1,0,0,0,0,0
+114,Marwahi Hills,Chhattisgarh,Gaurela-Pendra-Marwahi,22.7500,81.9500,3,68,0,1,0,0,0,0,0
+115,Dallirajhara Hills,Chhattisgarh,Balod,20.5833,81.0667,3,65,0,1,0,0,0,0,0
+116,Nendra Hill Raigarh,Chhattisgarh,Raigarh,22.0500,83.4000,2,62,0,1,0,0,0,0,0
+117,Amirgarh Hills,Chhattisgarh,Balrampur,23.2500,83.9000,3,65,0,1,0,0,0,0,0
+118,Sonhat Hills,Chhattisgarh,Korea,23.4167,82.4833,3,65,0,1,0,0,0,0,0
+119,Chhuikhadan Hills,Chhattisgarh,Rajnandgaon,21.5667,81.0167,3,62,0,1,0,0,0,0,0
+120,Sarguja Plateau Viewpoint,Chhattisgarh,Ambikapur,23.1500,83.2500,3,70,0,1,0,0,0,0,0
