@@ -10,7 +10,7 @@ app = FastAPI(title="Yatrik API", version="1.0.0")
 # FILE PATHS
 # ----------------------------
 MODEL_PATH = "rf_tourist_model.pkl"
-DATA_PATH = "tourist_places.csv"
+DATA_PATH = "chhattisgarh_tourist_places.csv"
 
 # ----------------------------
 # MODEL / DATA CONFIG
