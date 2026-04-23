@@ -15,7 +15,7 @@ DATA_PATH = "chhattisgarh_tourist_places.csv"
 # ----------------------------
 # MODEL / DATA CONFIG
 # ----------------------------
-FEATURES = ["Lat", "Lng", "Ideal_Hours", "Popularity_Score", "City_enc"]
+FEATURES = ["Lat", "Lng", "Ideal_Hours", "Popularity_Score"]
 
 TARGETS = [
     "Is_Museum",
@@ -25,7 +25,6 @@ TARGETS = [
     "Is_Temple",
     "Is_Wildlife",
     "Is_Shopping",
-    "Is_Foodie",
 ]
 
 DEFAULT_HOURS_PER_DAY = 8
@@ -54,7 +53,7 @@ required_columns = {
     "Lng",
     "Ideal_Hours",
     "Popularity_Score",
-    "City_enc",
+    *FEATURES,
     *TARGETS,
 }
 
@@ -63,7 +62,6 @@ if missing_columns:
     raise RuntimeError(
         f"Dataset missing required columns: {sorted(missing_columns)}"
     )
-
 
 # ----------------------------
 # REQUEST MODEL
@@ -74,22 +72,18 @@ class TripRequest(BaseModel):
     preferences: List[str] = Field(..., example=["Is_Nature", "Is_History"])
     hours_per_day: int = Field(DEFAULT_HOURS_PER_DAY, ge=1, le=24, example=8)
 
-
 # ----------------------------
 # HELPERS
 # ----------------------------
 def validate_preferences(preferences: List[str]) -> List[str]:
-    valid_preferences = [p for p in preferences if p in TARGETS]
-    return valid_preferences
+    return [p for p in preferences if p in TARGETS]
 
-
-def get_filtered_dataframe(user_input: str) -> tuple[pd.DataFrame, str]:
+def get_filtered_dataframe(user_input: str):
     if user_input in df["State"].unique():
         return df[df["State"] == user_input].copy(), "state"
     if user_input in df["City"].unique():
         return df[df["City"] == user_input].copy(), "city"
     return pd.DataFrame(), "none"
-
 
 def score_places(city_df: pd.DataFrame, user_preferences: List[str]) -> pd.DataFrame:
     if city_df.empty:
@@ -116,12 +110,11 @@ def score_places(city_df: pd.DataFrame, user_preferences: List[str]) -> pd.DataF
 
     return recommendations
 
-
 def build_itinerary(
     recommendations: pd.DataFrame,
     user_duration_days: int,
     hours_per_day: int,
-) -> tuple[List[dict], int, bool]:
+):
     itinerary = []
     current_day = 1
     remaining_hours = hours_per_day
@@ -168,14 +161,12 @@ def build_itinerary(
 
     return itinerary, spots_added, exceeded_duration
 
-
 # ----------------------------
 # ROUTES
 # ----------------------------
 @app.get("/")
 def root():
     return {"message": "Yatrik backend is running"}
-
 
 @app.get("/health")
 def health():
@@ -185,11 +176,9 @@ def health():
         "dataset_rows": int(len(df)),
     }
 
-
 @app.get("/targets")
 def get_targets():
     return {"targets": TARGETS}
-
 
 @app.post("/predict")
 def predict_trip(request: TripRequest):
