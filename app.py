@@ -115,6 +115,7 @@ class FlutterTripRequest(BaseModel):
 
     hours_per_day: int = Field(DEFAULT_HOURS_PER_DAY, ge=1, le=24, example=8)
 
+
 # ----------------------------
 # HELPERS
 # ----------------------------
@@ -236,8 +237,10 @@ def build_itinerary(
             {
                 "day": int(current_day),
                 "place_name": str(spot["Place_Name"]),
+                "name": str(spot["Place_Name"]),
                 "city": str(spot["City"]),
                 "state": str(spot["State"]),
+                "description": f"{str(spot['City'])}, {str(spot['State'])}",
                 "ideal_hours": float(spot["Ideal_Hours"]),
                 "popularity_score": float(spot["Popularity_Score"]),
                 "match_score": float(spot["Match_Score"]),
@@ -279,6 +282,9 @@ def generate_trip_response(request: TripRequest):
             "hours_per_day": hours_per_day,
             "preferences": user_preferences,
             "itinerary": [],
+            "recommendations": [],
+            "spots": [],
+            "places": [],
         }
 
     recommendations = score_places(city_df, user_preferences)
@@ -300,6 +306,9 @@ def generate_trip_response(request: TripRequest):
             "preferences": user_preferences,
             "spots_found": int(len(city_df)),
             "itinerary": [],
+            "recommendations": [],
+            "spots": [],
+            "places": [],
         }
 
     response = {
@@ -311,13 +320,21 @@ def generate_trip_response(request: TripRequest):
         "preferences": user_preferences,
         "spots_found": int(len(city_df)),
         "spots_added": int(spots_added),
+
+        # Old key kept.
         "itinerary": itinerary,
+
+        # New keys for Flutter.
+        "recommendations": itinerary,
+        "spots": itinerary,
+        "places": itinerary,
     }
 
     if exceeded_duration:
         response["note"] = "Some spots were omitted as they exceeded the trip duration."
 
     return response
+
 
 # ----------------------------
 # ROUTES
