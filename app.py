@@ -27,7 +27,7 @@ DATA_PATH = "chhattisgarh_tourist_places.csv"
 # ----------------------------
 # MODEL / DATA CONFIG
 # ----------------------------
-FEATURES = ["Lat", "Lng", "Ideal_Hours", "Popularity_Score"]
+FEATURES = ["Lat", "Lng", "City_enc", "Ideal_Hours", "Popularity_Score"]
 
 TARGETS = [
     "Is_Museum",
@@ -56,6 +56,12 @@ try:
     df = pd.read_csv(DATA_PATH)
 except Exception as e:
     raise RuntimeError(f"Failed to load dataset file '{DATA_PATH}': {e}")
+
+# ----------------------------
+# CREATE City_enc IF MISSING
+# ----------------------------
+if "City_enc" not in df.columns:
+    df["City_enc"] = pd.factorize(df["City"].astype(str))[0]
 
 required_columns = {
     "State",
