@@ -39,7 +39,7 @@ TARGETS = [
     "Is_Shopping",
 ]
 
-DEFAULT_HOURS_PER_DAY = 8
+DEFAULT_HOURS_PER_DAY = 14
 
 # ----------------------------
 # LOAD MODEL
