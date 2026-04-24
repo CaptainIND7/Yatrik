@@ -4,6 +4,8 @@ from pydantic import BaseModel, Field
 from typing import List
 import joblib
 import pandas as pd
+import os
+import requests
 
 app = FastAPI(title="Yatrik API", version="1.0.0")
 
