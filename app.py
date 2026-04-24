@@ -6,6 +6,7 @@ import joblib
 import pandas as pd
 import os
 import requests
+from functools import lru_cache
 
 app = FastAPI(title="Yatrik API", version="1.0.0")
 
@@ -42,6 +43,10 @@ TARGETS = [
 ]
 
 DEFAULT_HOURS_PER_DAY = 14
+
+# Image lookup config
+IMAGE_REQUEST_TIMEOUT = 2
+MAX_IMAGE_LOOKUPS = 8
 
 # ----------------------------
 # LOAD MODEL
@@ -178,6 +183,7 @@ def flutter_request_to_trip_request(request: FlutterTripRequest) -> TripRequest:
     )
 
 
+@lru_cache(maxsize=512)
 def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
     query = f"{place_name} {city}".strip()
 
@@ -192,7 +198,11 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
             "srlimit": 1,
         }
 
-        search_response = requests.get(api_url, params=search_params, timeout=5)
+        search_response = requests.get(
+            api_url,
+            params=search_params,
+            timeout=IMAGE_REQUEST_TIMEOUT,
+        )
         search_response.raise_for_status()
         search_data = search_response.json()
 
@@ -214,7 +224,11 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
             "pithumbsize": 600,
         }
 
-        image_response = requests.get(api_url, params=image_params, timeout=5)
+        image_response = requests.get(
+            api_url,
+            params=image_params,
+            timeout=IMAGE_REQUEST_TIMEOUT,
+        )
         image_response.raise_for_status()
         image_data = image_response.json()
 
@@ -232,6 +246,7 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
         return ""
 
 
+@lru_cache(maxsize=512)
 def get_pexels_image_url(place_name: str, city: str = "") -> str:
     api_key = os.getenv("PEXELS_API_KEY", "").strip()
 
@@ -257,7 +272,7 @@ def get_pexels_image_url(place_name: str, city: str = "") -> str:
             api_url,
             headers=headers,
             params=params,
-            timeout=5,
+            timeout=IMAGE_REQUEST_TIMEOUT,
         )
         response.raise_for_status()
 
@@ -355,7 +370,9 @@ def build_itinerary(
         city_name = str(spot["City"])
         state_name = str(spot["State"])
 
-        image_url = get_spot_image_url(place_name, city_name)
+        image_url = ""
+        if spots_added < MAX_IMAGE_LOOKUPS:
+            image_url = get_spot_image_url(place_name, city_name)
 
         itinerary.append(
             {
