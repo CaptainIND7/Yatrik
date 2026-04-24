@@ -178,6 +178,122 @@ def flutter_request_to_trip_request(request: FlutterTripRequest) -> TripRequest:
     )
 
 
+def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
+    query = f"{place_name} {city}".strip()
+
+    try:
+        api_url = "https://en.wikipedia.org/w/api.php"
+
+        search_params = {
+            "action": "query",
+            "list": "search",
+            "srsearch": query,
+            "format": "json",
+            "srlimit": 1,
+        }
+
+        search_response = requests.get(api_url, params=search_params, timeout=5)
+        search_response.raise_for_status()
+        search_data = search_response.json()
+
+        search_results = search_data.get("query", {}).get("search", [])
+
+        if not search_results:
+            return ""
+
+        page_title = search_results[0].get("title", "")
+
+        if not page_title:
+            return ""
+
+        image_params = {
+            "action": "query",
+            "prop": "pageimages",
+            "titles": page_title,
+            "format": "json",
+            "pithumbsize": 600,
+        }
+
+        image_response = requests.get(api_url, params=image_params, timeout=5)
+        image_response.raise_for_status()
+        image_data = image_response.json()
+
+        pages = image_data.get("query", {}).get("pages", {})
+
+        for _, page in pages.items():
+            thumbnail = page.get("thumbnail", {})
+            image_url = thumbnail.get("source", "")
+            if image_url:
+                return image_url
+
+        return ""
+
+    except Exception:
+        return ""
+
+
+def get_pexels_image_url(place_name: str, city: str = "") -> str:
+    api_key = os.getenv("PEXELS_API_KEY", "").strip()
+
+    if not api_key:
+        return ""
+
+    query = f"{place_name} {city} tourist place".strip()
+
+    try:
+        api_url = "https://api.pexels.com/v1/search"
+
+        headers = {
+            "Authorization": api_key,
+        }
+
+        params = {
+            "query": query,
+            "per_page": 1,
+            "orientation": "landscape",
+        }
+
+        response = requests.get(
+            api_url,
+            headers=headers,
+            params=params,
+            timeout=5,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        photos = data.get("photos", [])
+
+        if not photos:
+            return ""
+
+        src = photos[0].get("src", {})
+
+        return (
+            src.get("medium")
+            or src.get("large")
+            or src.get("original")
+            or ""
+        )
+
+    except Exception:
+        return ""
+
+
+def get_spot_image_url(place_name: str, city: str = "") -> str:
+    image_url = get_wikimedia_image_url(place_name, city)
+
+    if image_url:
+        return image_url
+
+    image_url = get_pexels_image_url(place_name, city)
+
+    if image_url:
+        return image_url
+
+    return ""
+
+
 def score_places(city_df: pd.DataFrame, user_preferences: List[str]) -> pd.DataFrame:
     if city_df.empty:
         return city_df
@@ -235,20 +351,27 @@ def build_itinerary(
             if int(spot[target]) == 1
         ]
 
+        place_name = str(spot["Place_Name"])
+        city_name = str(spot["City"])
+        state_name = str(spot["State"])
+
+        image_url = get_spot_image_url(place_name, city_name)
+
         itinerary.append(
             {
                 "day": int(current_day),
-                "place_name": str(spot["Place_Name"]),
-                "name": str(spot["Place_Name"]),
-                "city": str(spot["City"]),
-                "state": str(spot["State"]),
-                "description": f"{str(spot['City'])}, {str(spot['State'])}",
+                "place_name": place_name,
+                "name": place_name,
+                "city": city_name,
+                "state": state_name,
+                "description": f"{city_name}, {state_name}",
                 "ideal_hours": float(spot["Ideal_Hours"]),
                 "popularity_score": float(spot["Popularity_Score"]),
                 "match_score": float(spot["Match_Score"]),
                 "categories": actual_tags,
                 "lat": float(spot["Lat"]),
                 "lng": float(spot["Lng"]),
+                "image_url": image_url,
             }
         )
 
