@@ -6,3 +6,4 @@ joblib
 pydantic
 python-multipart
 numpy
+requests
