@@ -27,7 +27,7 @@ DATA_PATH = "chhattisgarh_tourist_places.csv"
 # ----------------------------
 # MODEL / DATA CONFIG
 # ----------------------------
-FEATURES = ["Lat", "Lng", "City_enc", "Ideal_Hours", "Popularity_Score"]
+DEFAULT_FEATURES = ["Lat", "Lng", "Ideal_Hours", "Popularity_Score", "City_enc"]
 
 TARGETS = [
     "Is_Museum",
@@ -48,6 +48,14 @@ try:
     model = joblib.load(MODEL_PATH)
 except Exception as e:
     raise RuntimeError(f"Failed to load model file '{MODEL_PATH}': {e}")
+
+# ----------------------------
+# GET EXACT MODEL FEATURE ORDER
+# ----------------------------
+try:
+    FEATURES = list(model.feature_names_in_)
+except Exception:
+    FEATURES = DEFAULT_FEATURES
 
 # ----------------------------
 # LOAD DATASET
@@ -325,6 +333,7 @@ def health():
         "status": "ok",
         "model_loaded": True,
         "dataset_rows": int(len(df)),
+        "features_used": FEATURES,
     }
 
 
