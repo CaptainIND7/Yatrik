@@ -1,10 +1,22 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List
 import joblib
 import pandas as pd
 
 app = FastAPI(title="Yatrik API", version="1.0.0")
+
+# ----------------------------
+# CORS CONFIG
+# ----------------------------
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # ----------------------------
 # FILE PATHS
@@ -64,12 +76,29 @@ if missing_columns:
     )
 
 # ----------------------------
-# REQUEST MODEL
+# REQUEST MODELS
 # ----------------------------
 class TripRequest(BaseModel):
     place: str = Field(..., example="Raipur")
     days: int = Field(..., ge=1, le=30, example=2)
     preferences: List[str] = Field(..., example=["Is_Nature", "Is_History"])
+    hours_per_day: int = Field(DEFAULT_HOURS_PER_DAY, ge=1, le=24, example=8)
+
+
+class FlutterTripRequest(BaseModel):
+    City: str = Field(..., example="Raipur")
+    State: str = Field("", example="Chhattisgarh")
+    Days: int = Field(..., ge=1, le=30, example=2)
+
+    Is_Museum: int = 0
+    Is_Nature: int = 0
+    Is_Beach: int = 0
+    Is_History: int = 0
+    Is_Temple: int = 0
+    Is_Wildlife: int = 0
+    Is_Shopping: int = 0
+    Is_Foodie: int = 0
+
     hours_per_day: int = Field(DEFAULT_HOURS_PER_DAY, ge=1, le=24, example=8)
 
 # ----------------------------
@@ -78,12 +107,59 @@ class TripRequest(BaseModel):
 def validate_preferences(preferences: List[str]) -> List[str]:
     return [p for p in preferences if p in TARGETS]
 
+
 def get_filtered_dataframe(user_input: str):
-    if user_input in df["State"].unique():
-        return df[df["State"] == user_input].copy(), "state"
-    if user_input in df["City"].unique():
-        return df[df["City"] == user_input].copy(), "city"
+    user_input = user_input.strip()
+
+    state_match = df[df["State"].astype(str).str.lower() == user_input.lower()]
+    if not state_match.empty:
+        return state_match.copy(), "state"
+
+    city_match = df[df["City"].astype(str).str.lower() == user_input.lower()]
+    if not city_match.empty:
+        return city_match.copy(), "city"
+
     return pd.DataFrame(), "none"
+
+
+def flutter_request_to_trip_request(request: FlutterTripRequest) -> TripRequest:
+    preferences = []
+
+    if request.Is_Museum == 1:
+        preferences.append("Is_Museum")
+
+    if request.Is_Nature == 1:
+        preferences.append("Is_Nature")
+
+    if request.Is_Beach == 1:
+        preferences.append("Is_Beach")
+
+    if request.Is_History == 1:
+        preferences.append("Is_History")
+
+    if request.Is_Temple == 1:
+        preferences.append("Is_Temple")
+
+    if request.Is_Wildlife == 1:
+        preferences.append("Is_Wildlife")
+
+    if request.Is_Shopping == 1:
+        preferences.append("Is_Shopping")
+
+    # Is_Foodie is ignored for now because TARGETS does not contain Is_Foodie.
+
+    place_to_search = request.City.strip()
+
+    if not place_to_search:
+        place_to_search = request.State.strip()
+
+    return TripRequest(
+        place=place_to_search,
+        days=request.Days,
+        preferences=preferences,
+        hours_per_day=request.hours_per_day,
+    )
+
 
 def score_places(city_df: pd.DataFrame, user_preferences: List[str]) -> pd.DataFrame:
     if city_df.empty:
@@ -109,6 +185,7 @@ def score_places(city_df: pd.DataFrame, user_preferences: List[str]) -> pd.DataF
     )
 
     return recommendations
+
 
 def build_itinerary(
     recommendations: pd.DataFrame,
@@ -161,27 +238,8 @@ def build_itinerary(
 
     return itinerary, spots_added, exceeded_duration
 
-# ----------------------------
-# ROUTES
-# ----------------------------
-@app.get("/")
-def root():
-    return {"message": "Yatrik backend is running"}
 
-@app.get("/health")
-def health():
-    return {
-        "status": "ok",
-        "model_loaded": True,
-        "dataset_rows": int(len(df)),
-    }
-
-@app.get("/targets")
-def get_targets():
-    return {"targets": TARGETS}
-
-@app.post("/predict")
-def predict_trip(request: TripRequest):
+def generate_trip_response(request: TripRequest):
     user_input = request.place.strip()
     user_duration_days = request.days
     user_preferences = validate_preferences(request.preferences)
@@ -246,3 +304,35 @@ def predict_trip(request: TripRequest):
         response["note"] = "Some spots were omitted as they exceeded the trip duration."
 
     return response
+
+# ----------------------------
+# ROUTES
+# ----------------------------
+@app.get("/")
+def root():
+    return {"message": "Yatrik backend is running"}
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "ok",
+        "model_loaded": True,
+        "dataset_rows": int(len(df)),
+    }
+
+
+@app.get("/targets")
+def get_targets():
+    return {"targets": TARGETS}
+
+
+@app.post("/predict")
+def predict_trip(request: TripRequest):
+    return generate_trip_response(request)
+
+
+@app.post("/recommend")
+def recommend_trip(request: FlutterTripRequest):
+    converted_request = flutter_request_to_trip_request(request)
+    return generate_trip_response(converted_request)
