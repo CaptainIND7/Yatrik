@@ -44,6 +44,12 @@ TARGETS = [
 DEFAULT_HOURS_PER_DAY = 14
 
 # ----------------------------
+# IMAGE CONFIG
+# ----------------------------
+IMAGE_REQUEST_TIMEOUT = 5
+PEXELS_IMAGES_PER_SEARCH = 8
+
+# ----------------------------
 # LOAD MODEL
 # ----------------------------
 try:
@@ -192,7 +198,11 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
             "srlimit": 1,
         }
 
-        search_response = requests.get(api_url, params=search_params, timeout=5)
+        search_response = requests.get(
+            api_url,
+            params=search_params,
+            timeout=IMAGE_REQUEST_TIMEOUT,
+        )
         search_response.raise_for_status()
         search_data = search_response.json()
 
@@ -214,7 +224,11 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
             "pithumbsize": 600,
         }
 
-        image_response = requests.get(api_url, params=image_params, timeout=5)
+        image_response = requests.get(
+            api_url,
+            params=image_params,
+            timeout=IMAGE_REQUEST_TIMEOUT,
+        )
         image_response.raise_for_status()
         image_data = image_response.json()
 
@@ -232,13 +246,13 @@ def get_wikimedia_image_url(place_name: str, city: str = "") -> str:
         return ""
 
 
-def get_pexels_image_url(place_name: str, city: str = "") -> str:
+def get_pexels_image_urls(place_name: str, city: str = "") -> List[str]:
     api_key = os.getenv("PEXELS_API_KEY", "").strip()
 
     if not api_key:
-        return ""
+        return []
 
-    query = f"{place_name} {city} tourist place".strip()
+    query = f"{place_name} {city} Chhattisgarh India tourist place".strip()
 
     try:
         api_url = "https://api.pexels.com/v1/search"
@@ -249,7 +263,7 @@ def get_pexels_image_url(place_name: str, city: str = "") -> str:
 
         params = {
             "query": query,
-            "per_page": 1,
+            "per_page": PEXELS_IMAGES_PER_SEARCH,
             "orientation": "landscape",
         }
 
@@ -257,27 +271,39 @@ def get_pexels_image_url(place_name: str, city: str = "") -> str:
             api_url,
             headers=headers,
             params=params,
-            timeout=5,
+            timeout=IMAGE_REQUEST_TIMEOUT,
         )
         response.raise_for_status()
 
         data = response.json()
         photos = data.get("photos", [])
+        image_urls = []
 
-        if not photos:
-            return ""
+        for photo in photos:
+            src = photo.get("src", {})
+            image_url = (
+                src.get("medium")
+                or src.get("large")
+                or src.get("original")
+                or ""
+            )
 
-        src = photos[0].get("src", {})
+            if image_url:
+                image_urls.append(image_url)
 
-        return (
-            src.get("medium")
-            or src.get("large")
-            or src.get("original")
-            or ""
-        )
+        return image_urls
 
     except Exception:
-        return ""
+        return []
+
+
+def get_pexels_image_url(place_name: str, city: str = "") -> str:
+    image_urls = get_pexels_image_urls(place_name, city)
+
+    if image_urls:
+        return image_urls[0]
+
+    return ""
 
 
 def get_spot_image_url(place_name: str, city: str = "") -> str:
@@ -290,6 +316,30 @@ def get_spot_image_url(place_name: str, city: str = "") -> str:
 
     if image_url:
         return image_url
+
+    return ""
+
+
+def get_unique_spot_image_url(
+    place_name: str,
+    city: str = "",
+    used_image_urls: set | None = None,
+) -> str:
+    if used_image_urls is None:
+        used_image_urls = set()
+
+    wikimedia_url = get_wikimedia_image_url(place_name, city)
+
+    if wikimedia_url and wikimedia_url not in used_image_urls:
+        used_image_urls.add(wikimedia_url)
+        return wikimedia_url
+
+    pexels_urls = get_pexels_image_urls(place_name, city)
+
+    for image_url in pexels_urls:
+        if image_url and image_url not in used_image_urls:
+            used_image_urls.add(image_url)
+            return image_url
 
     return ""
 
@@ -330,6 +380,7 @@ def build_itinerary(
     remaining_hours = hours_per_day
     spots_added = 0
     exceeded_duration = False
+    used_image_urls = set()
 
     for _, spot in recommendations.iterrows():
         spot_time = float(spot["Ideal_Hours"])
@@ -355,7 +406,11 @@ def build_itinerary(
         city_name = str(spot["City"])
         state_name = str(spot["State"])
 
-        image_url = get_spot_image_url(place_name, city_name)
+        image_url = get_unique_spot_image_url(
+            place_name=place_name,
+            city=city_name,
+            used_image_urls=used_image_urls,
+        )
 
         itinerary.append(
             {
